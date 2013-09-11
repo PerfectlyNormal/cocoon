@@ -34,7 +34,16 @@
 
     if (insertionNode){
       if (insertionTraversal){
-        insertionNode = $this[insertionTraversal](insertionNode)
+        if(insertionTraversal.indexOf(',')) {
+          finders = insertionTraversal.split(',');
+          selectors = insertionNode.split(',');
+          insertionNode = $this;
+          for(var i=0; i < finders.length; i++) {
+            insertionNode = insertionNode[finders[i]](selectors[i]);
+          }
+        } else {
+          insertionNode = $this[insertionTraversal](insertionNode);
+        }
       } else {
         insertionNode = insertionNode == "this" ? $this : $(insertionNode);
       }
