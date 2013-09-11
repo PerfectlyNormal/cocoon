@@ -110,6 +110,12 @@ module Cocoon
     def create_object_on_association(f, association, instance, force_non_association_create)
       if instance.class.name == "Mongoid::Relations::Metadata" || force_non_association_create
         create_object_with_conditions(instance)
+      elsif instance.class.name == "MongoMapper::Plugins::Rails::ActiveRecordAssociationAdapter"
+        if instance.macro == :has_many
+          f.object.send(association).build
+        else # either :has_one or :belongs_to, both of which respond to build_<association>
+          f.object.send("build_#{association}")
+        end
       else
         # assume ActiveRecord or compatible
         if instance.collection?
