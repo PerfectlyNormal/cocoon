@@ -1,5 +1,17 @@
 # Change History / Release Notes
 
+## Version 1.1.3 (Atlantia)
+
+* Override JavaScript function for click .add_fields.
+  Possible to give a comma-separated list to association-insertion-traversal
+  and association-insertion-node to chain queries.
+  For example:
+    association-insertion-traversal => "closest,find"
+    association-insertion-node      => ".module-wrapper,.steps"
+  will call $this.closest(".module-wrapper").find(".steps") and use that for
+  the insertion node.
+* MongoMapper does not respond to `instance.collection?` when building an object, so check `instance.macro` instead
+
 ## Version 1.1.2
 
 * pull #118 (thanks @ahmozkya): remove the deprecated `.live` function, and use `.on` instead.
